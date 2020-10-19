@@ -14,14 +14,14 @@ import java.util.List;
 @Service
 public interface IProductService {
 
-    int addPro(Product product);
+    String addPro(Product product);
 
-    List<Product> getAllPro();
+    String getAllPro();
 
-    int deleteById(String gId);
+    String deleteById(String gId);
 
-    List<Product> queryProByCondition(String gName,String gCat);
+    String queryProByCondition(String gName,String gCat);
 
-    int updatePro(Product product);
+    String  updatePro(Product product);
 
 }
