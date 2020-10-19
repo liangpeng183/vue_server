@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szcf.vue_server.mapper.ProductMapper">
+
+    <!--判断字段是否为空，为空则过滤  -->
+    <select id="queryProByCondition" parameterType="String" resultType="com.szcf.vue_server.bean.Product">
+        select * from product where 1 = 1
+        <if test="gName != '' ">
+            and gName like '%' #{gName} '%'
+        </if>
+        <if test="gCat != ''">
+            and gCat like '%' #{gCat} '%'
+        </if>
+    </select>
+
+
+
+</mapper>
