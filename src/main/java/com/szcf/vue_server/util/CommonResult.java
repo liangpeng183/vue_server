@@ -13,6 +13,16 @@ public class CommonResult<T> implements Serializable {
     private String message;  // msg  消息
     private T data;   // 数据
 
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    private int total;   //总记录数
+
     public CommonResult() {
     }
 

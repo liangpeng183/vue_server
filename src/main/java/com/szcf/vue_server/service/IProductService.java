@@ -20,8 +20,11 @@ public interface IProductService {
 
     String deleteById(String gId);
 
-    String queryProByCondition(String gName,String gCat);
+    String queryProByCondition(String gName,String gCat,int currentPage,int pageSize);
 
     String  updatePro(Product product);
+
+    String getByPage(int pageNow,int pageSize);
+
 
 }

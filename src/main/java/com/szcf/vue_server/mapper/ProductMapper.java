@@ -38,11 +38,19 @@ public interface ProductMapper {
             " and gCat = #{gCat}",
             " </when>",
             " </script>"})*/
-    List<Product> queryProByCondition(@Param("gName")String gName,@Param("gCat")String gCat);
+    List<Product> queryProByCondition(@Param("gName")String gName,@Param("gCat")String gCat,
+                                      @Param("currentPage")int currentPage,@Param("pageSize")int pageSize);
 
     // 更新
     @Update("update product set gName = #{gName}, gCat = #{gCat} , gNum =#{gNum} , gPrice =#{gPrice} where gId = #{gId}")
     int updatePro(Product product);
 
+    //分页 查询
+    @Select("select  * from product limit #{pageNow},#{pageSize}")
+    List<Product> getByPage(@Param("pageNow")int pageNow,@Param("pageSize")int pageSize);
+
+    // 获取总数
+//    @Select("SELECT COUNT(*) from product")
+    int getCount(@Param("gName")String gName,@Param("gCat")String gCat);
 
 }
