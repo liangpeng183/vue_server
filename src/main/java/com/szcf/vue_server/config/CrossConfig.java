@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 /**
  * @author lp
- * @Description: ${todo}
+ * @Description:  跨域配置
  * @create 2020/8/5 18:30
  */
 @Configuration

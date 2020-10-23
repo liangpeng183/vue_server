@@ -1,5 +1,7 @@
 package com.szcf.vue_server.bean;
 
+import com.szcf.vue_server.common.BaseBean;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +9,7 @@ import java.io.Serializable;
  * @Description:  商品表
  * @create 2020/9/27 19:10
  */
-public class Product implements Serializable  {
+public class Product extends BaseBean implements Serializable  {
 
     private String gId;   // id
     private String gName;    // 名称

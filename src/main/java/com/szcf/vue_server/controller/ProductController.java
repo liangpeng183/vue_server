@@ -1,6 +1,7 @@
 package com.szcf.vue_server.controller;
 
 import com.szcf.vue_server.bean.Product;
+import com.szcf.vue_server.common.GlobalExceptionHandler;
 import com.szcf.vue_server.exception.BizException;
 import com.szcf.vue_server.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import java.util.UUID;
 public class ProductController {
 
     @Autowired
-    private ProductServiceImpl productService;
+    private ProductServiceImpl productService;   //注入 实现类  （一般注入接口吧？？ 可完善）
 
     // 列表 初始化数据
     @RequestMapping("/getAll")
@@ -34,7 +35,6 @@ public class ProductController {
         System.out.println("新增商品：" + product.getgCat());
         System.out.println("新增商品：" + product.getgNum());
         System.out.println("新增商品：" + product.getgPrice());
-
         return productService.addPro(product);
     }
 

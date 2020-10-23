@@ -1,16 +1,21 @@
 package com.szcf.vue_server.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
 import com.szcf.vue_server.bean.Product;
 import com.szcf.vue_server.constant.Const;
 import com.szcf.vue_server.mapper.ProductMapper;
 import com.szcf.vue_server.service.IProductService;
 import com.szcf.vue_server.util.ChangeToJson;
 import com.szcf.vue_server.util.CommonResult;
+import com.szcf.vue_server.util.RedisUtil;
+import com.szcf.vue_server.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,6 +30,9 @@ public class ProductServiceImpl implements IProductService {
 
     @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private RedisUtil redisUtil;   // 自动注入
 
     //  新增商品
     @Override
@@ -52,21 +60,29 @@ public class ProductServiceImpl implements IProductService {
 
     // 获取所有数据  （没有分页）
     @Override
-    @Cacheable(cacheNames = "productList")
+    //@Cacheable(cacheNames = "productList")
     public String getAllPro() {
         System.out.println("初始化表格数据");
-        List<Product> productList = productMapper.getAllPro();
-        CommonResult commonResult = new CommonResult();
-        if (productList.size() > 0) {
-            commonResult.setCode(Const.SUCCESS_CODE);
-            commonResult.setData(productList);
-            commonResult.setMessage("查询" + Const.SUCCESS_MSG);
-        } else {
-            commonResult.setCode(Const.FAIL_CODE);
-            commonResult.setData("");
-            commonResult.setMessage("查询" + Const.FAIL_MSG);
+        List<Product> productList = null;
+        // 判断 redis 是否存在数据
+        String proList = (String) redisUtil.get("pro");
+        //  缓存 不存在  从数据库拿
+        if(proList == null){
+            productList = productMapper.getAllPro();
+            System.out.println("数据库取数据");
+            if(productList != null){ //数据库存在数据
+                redisUtil.set("pro", new Gson().toJson(productList));
+
+            }else {
+                return ChangeToJson.changeToJson(ResultUtil.dataNull());
+            }
+            return ChangeToJson.changeToJson(ResultUtil.success(productList));
+        }else {
+            // 缓存存在
+            System.out.println("redis缓存取数据");
+            return ChangeToJson.changeToJson(ResultUtil.success(proList));
         }
-        return ChangeToJson.changeToJson(commonResult);
+
     }
 
     // 根据 id  删除

@@ -16,6 +16,7 @@
         limit #{currentPage},#{pageSize}
     </select>
 
+
     <!-- 获取当前条件的总数  -->
     <select id="getCount" parameterType="String" resultType="java.lang.Integer">
         select COUNT(*)  from product where 1 = 1

@@ -1,5 +1,7 @@
 package com.szcf.vue_server.bean;
 
+import com.szcf.vue_server.common.BaseBean;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +9,7 @@ import java.io.Serializable;
  * @Description: 用户表
  * @create 2020/8/7 17:17
  */
-public class User implements Serializable {
+public class User extends BaseBean implements Serializable {
 
     private String username;
     private String password;
