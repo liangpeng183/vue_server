@@ -29,14 +29,14 @@ public class UserController {
         System.out.println("用  户： " + user.getUsername());
         System.out.println("密  码： " + user.getPassword());
 
-        String key = "1";
+      /*  String key = "1";
         // redisUtil.set(key, user);
         String user_redis = (String) redisUtil.get(key);
         System.out.println("redis缓存：" + user_redis);
-
-        if (user_redis == null) {
+*/
+       /* if (user_redis == null) {
            return ChangeToJson.changeToJson(ResultUtil.fail());
-        }
+        }*/
         System.out.println("hhhh******--" + ChangeToJson.changeToJson(ResultUtil.success(user)));
         return ChangeToJson.changeToJson(ResultUtil.success(user));
         //三目运算
